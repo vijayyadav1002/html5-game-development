@@ -156,7 +156,13 @@ function drawSprite(spritename, posX, posY) {
     //    described below.
     //
     // YOUR CODE HERE
-
+    for (var sheetName in gSpriteSheets) {
+        var sheet = gSpriteSheets[sheetName];
+        var sprite = sheet.getStats(spritename);
+        if(sprite == null) continue;
+        this.__drawSpriteInternal(sprite, sheet, posX, posY);
+        return;
+    }    
 }
 
 //-----------------------------------------
@@ -169,7 +175,8 @@ function __drawSpriteInternal(spt, sheet, posX, posY) {
     // First, check if the sprite or sheet objects are
     // null.
     //
-    // YOUR CODE HERE
+    // YOUR CODE HERE  
+    if(spt == null || sheet == null) return;  
     
     
     // Call the drawImage method of our canvas context
@@ -210,6 +217,10 @@ function __drawSpriteInternal(spt, sheet, posX, posY) {
     // we want to draw.
     //
     // YOUR CODE HERE
-    
-    
+    var hlf={
+        x:spt.cx,
+        y:spt.y
+    };
+
+    ctx.drawImage(sheet.img, spt.x + hlf.x, spt.y + hlf.y, spt.w, spt.h, posX, posY, spt.w, spt.h);
 }
