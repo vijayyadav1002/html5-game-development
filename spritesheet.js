@@ -136,6 +136,10 @@ SpriteSheetClass = Class.extend({
             // have to change any other code at all!
             //
             // YOUR CODE HERE
+            if(sprite.trimmed) {
+                cx = sprite.spriteSourceSize.x - sprite.sourceSize.w*0.5;
+                cy = sprite.spriteSourceSize.y - sprite.sourceSize.h*0.5;
+            }
 
             
             // Define the sprite for this sheet by calling
