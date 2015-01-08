@@ -20,8 +20,10 @@ var TILEDMapClass = Class.extend({
         // 'fullyLoaded' flag to true.
         //
         // YOUR CODE HERE
-        
-        
+        var that = this;
+        xhrGet(map, function(){
+            that.fullyLoaded = true;
+        });
     }
 
 });
