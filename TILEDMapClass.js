@@ -72,8 +72,14 @@ var TILEDMapClass = Class.extend({
         // Once you're done, set fullyLoaded to true.
         //
         // YOUR CODE HERE
-        
-        
+        this.numXTiles = gMap.currMapData.width;
+        this.numYTiles = gMap.currMapData.height;
+        this.tileSize.x = gMap.currMapData.tilewidth;
+        this.tileSize.y = gMap.currMapData.tileheight;
+        this.pixelSize.x = this.numXTiles * this.tileSize.x;
+        this.pixelSize.y = this.numYTiles * this.tileSize.y;
+
+        this.fullyLoaded = true;
     }
 
 });
