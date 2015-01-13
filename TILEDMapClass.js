@@ -103,7 +103,18 @@ var TILEDMapClass = Class.extend({
         // the answer video. You won't need to worry about
         // that right now.
         //
-        // YOUR CODE HERE
+        // YOUR CODE HERE        
+        var that = this;
+        map.tilesets.forEach(function(tile){
+            var img  = new Image();
+            img.onload = function(){
+                that.imgLoadCount++;
+                if(that.imgLoadCount == map.tilesets.length){
+                    that.fullyLoaded = true;
+                }
+            };            
+            img.src = tile.image;
+        });
     }
 
 });
