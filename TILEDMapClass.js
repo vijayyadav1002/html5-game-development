@@ -1,3 +1,5 @@
+
+
 var TILEDMapClass = Class.extend({
     // This is where we store the full parsed
     // JSON of the map.json file.
@@ -37,7 +39,11 @@ var TILEDMapClass = Class.extend({
         "y": 64
     },
 
-    // Boolean flag we set once our map atlas
+    // Counter to keep track of how many tile
+    // images we have successfully loaded.
+    imgLoadCount: 0,
+
+    // Boolean flag we set once our tile images
     // has finished loading.
     fullyLoaded: false,
 
@@ -63,23 +69,41 @@ var TILEDMapClass = Class.extend({
         // the resulting map data
         gMap.currMapData = JSON.parse(mapJSON);
 
-        // Set the above properties of our TILEDMap based
-        // on the various properties in 'currMapData'.
-        // Look at the comments describing each field
-        // to see what properties of 'currMapData' to pull
-        // this information from.
+        var map = gMap.currMapData;
+      
+        // Set 'numXTiles' and 'numYTiles' from the
+        // 'width' and 'height' fields of our parsed
+        // map data.
+        gMap.numXTiles = map.width;
+        gMap.numYTiles = map.height;
+      
+        // Set the 'tileSize.x' and 'tileSize.y' fields
+        // from the 'tilewidth' and 'tileheight' fields
+        // of our parsed map data.
+        gMap.tileSize.x = map.tilewidth;
+        gMap.tileSize.y = map.tileheight;
+      
+        // Set the 'pixelSize.x' and 'pixelSize.y' fields
+        // by multiplying the number of tiles in our map
+        // by the size of each tile in pixels.
+        gMap.pixelSize.x = gMap.numXTiles * gMap.tileSize.x;
+        gMap.pixelSize.y = gMap.numYTiles * gMap.tileSize.y;
+
+        // Loop through 'map.tilesets', an Array, loading each
+        // of the provided tilesets as Images. Increment the
+        // above 'imgLoadCount' field of 'TILEDMap' as each
+        // tileset is loading. Once all the tilesets are
+        // loaded, set the 'fullyLoaded' flag to true.
         //
-        // Once you're done, set fullyLoaded to true.
+        // The 'src' value to load each new Image from is in
+        // the 'image' property of the 'tilesets'.
+        // 
+        // Note that TILED by default has a rather ugly path
+        // for the 'image' property, which we'll discuss in
+        // the answer video. You won't need to worry about
+        // that right now.
         //
         // YOUR CODE HERE
-        this.numXTiles = gMap.currMapData.width;
-        this.numYTiles = gMap.currMapData.height;
-        this.tileSize.x = gMap.currMapData.tilewidth;
-        this.tileSize.y = gMap.currMapData.tileheight;
-        this.pixelSize.x = this.numXTiles * this.tileSize.x;
-        this.pixelSize.y = this.numYTiles * this.tileSize.y;
-
-        this.fullyLoaded = true;
     }
 
 });
