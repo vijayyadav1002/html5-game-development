@@ -130,15 +130,15 @@ var TILEDMapClass = Class.extend({
                 // All of these fields have incorrect dummy data
                 // currently! You need to replace this with the
                 // correct data.
-                "firstgid": 1/* YOUR CODE HERE */,
+                "firstgid": map.tilesets[i].firstgid,
 
                 // 'image' should equal the Image object we
                 // just created.
 
-                "image": new Image()/* YOUR CODE HERE */,
-                "imageheight": 2/* YOUR CODE HERE */,
-                "imagewidth": 3/* YOUR CODE HERE */,
-                "name": "NOT RIGHT!"/* YOUR CODE HERE */,
+                "image": img,
+                "imageheight": map.tilesets[i].imageheight,
+                "imagewidth": map.tilesets[i].imagewidth,
+                "name":map.tilesets[i].name,
 
                 // These next two fields are tricky. You'll
                 // need to calculate this data from the
@@ -149,8 +149,8 @@ var TILEDMapClass = Class.extend({
                 // might need to do a bit of manipulation after
                 // you calculate it.
 
-                "numXTiles": 4/* YOUR CODE HERE */,
-                "numYTiles": 5/* YOUR CODE HERE */
+                "numXTiles": map.tilesets[i].imagewidth * map.tilesets[i].tilewidth,
+                "numYTiles": map.tilesets[i].imageheight * map.tilesets[i].tileheight
             };
             
             // After that, push the newly created object into
@@ -160,7 +160,7 @@ var TILEDMapClass = Class.extend({
             // we'd like to put into the Array as a parameter.
             // 
             // YOUR CODE HERE
-            
+            gMap.tilesets.push(ts);
         }
     }
 
