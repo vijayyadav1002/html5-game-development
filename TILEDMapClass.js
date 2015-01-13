@@ -5,6 +5,13 @@ var TILEDMapClass = Class.extend({
     // JSON of the map.json file.
     currMapData: null,
 
+    // tilesets stores each individual tileset
+    // from the map.json's 'tilesets' Array.
+    // The structure of each entry of this
+    // Array is explained below in the
+    // parseAtlasDefinition method.
+    tilesets: [],
+
     // This is where we store the width and
     // height of the map in tiles. This is
     // in the 'width' and 'height' fields
@@ -63,7 +70,11 @@ var TILEDMapClass = Class.extend({
         });
     },
 
-    //---------------------------
+    //-----------------------------------------
+    // Parses the map data from 'mapJSON', then
+    // stores that data in a number of members
+    // of our 'TILEDMapClass' that are defined
+    // above.
     parseMapJSON: function (mapJSON) {
         // Call JSON.parse on 'mapJSON' and store
         // the resulting map data
@@ -89,32 +100,68 @@ var TILEDMapClass = Class.extend({
         gMap.pixelSize.x = gMap.numXTiles * gMap.tileSize.x;
         gMap.pixelSize.y = gMap.numYTiles * gMap.tileSize.y;
 
-        // Loop through 'map.tilesets', an Array, loading each
-        // of the provided tilesets as Images. Increment the
-        // above 'imgLoadCount' field of 'TILEDMap' as each
-        // tileset is loading. Once all the tilesets are
-        // loaded, set the 'fullyLoaded' flag to true.
-        //
-        // The 'src' value to load each new Image from is in
-        // the 'image' property of the 'tilesets'.
-        // 
-        // Note that TILED by default has a rather ugly path
-        // for the 'image' property, which we'll discuss in
-        // the answer video. You won't need to worry about
-        // that right now.
-        //
-        // YOUR CODE HERE        
-        var that = this;
-        map.tilesets.forEach(function(tile){
-            var img  = new Image();
-            img.onload = function(){
-                that.imgLoadCount++;
-                if(that.imgLoadCount == map.tilesets.length){
-                    that.fullyLoaded = true;
+        // Loop through 'map.tilesets', an Array...
+        for(var i = 0; i < map.tilesets.length; i++) {
+
+            // ...loading each of the provided tilesets as
+            // Images...
+            var img = new Image();
+            img.onload = function () {
+                // ...Increment the above 'imgLoadCount'
+                // field of 'TILEDMap' as each tileset is 
+                // loading...
+                gMap.imgLoadCount++;
+                if (gMap.imgLoadCount === map.tilesets.length) {
+                    // ...Once all the tilesets are loaded, 
+                    // set the 'fullyLoaded' flag to true...
+                    gMap.fullyLoaded = true;
                 }
-            };            
-            img.src = tile.image;
-        });
+            };
+
+            // The 'src' value to load each new Image from is in
+            // the 'image' property of the 'tilesets'.
+            img.src = map.tilesets[i].image;
+
+            // This is the javascript object we'll create for
+            // the 'tilesets' Array above. First, fill in the
+            // given fields with the corresponding fields from
+            // the 'tilesets' Array in 'currMapData'.
+            var ts = {
+                // All of these fields have incorrect dummy data
+                // currently! You need to replace this with the
+                // correct data.
+                "firstgid": 1/* YOUR CODE HERE */,
+
+                // 'image' should equal the Image object we
+                // just created.
+
+                "image": new Image()/* YOUR CODE HERE */,
+                "imageheight": 2/* YOUR CODE HERE */,
+                "imagewidth": 3/* YOUR CODE HERE */,
+                "name": "NOT RIGHT!"/* YOUR CODE HERE */,
+
+                // These next two fields are tricky. You'll
+                // need to calculate this data from the
+                // width and height of the overall image and
+                // the size of each individual tile.
+                // 
+                // Remember: This should be an integer, so you
+                // might need to do a bit of manipulation after
+                // you calculate it.
+
+                "numXTiles": 4/* YOUR CODE HERE */,
+                "numYTiles": 5/* YOUR CODE HERE */
+            };
+            
+            // After that, push the newly created object into
+            // the 'tilesets' Array above. Javascript Arrays
+            // have a handy method called, appropriately, 'push'
+            // that does exactly this. It takes the object
+            // we'd like to put into the Array as a parameter.
+            // 
+            // YOUR CODE HERE
+            
+        }
     }
 
 });
